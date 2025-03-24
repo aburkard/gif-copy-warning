@@ -9,6 +9,12 @@ Shows a warning notification when you right-click on a GIF image so you don't ac
 3. Enable "Developer mode"
 4. Click "Load unpacked" and select this directory
 
+## Options
+
+Click the extension icon in your browser toolbar to access settings, including:
+
+- "Really Annoying Mode" 🤪
+
 ## License
 
 MIT
