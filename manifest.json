@@ -1,0 +1,21 @@
+{
+  "manifest_version": 3,
+  "name": "GIF Copy Warning",
+  "version": "1.0",
+  "description": "Warns users when they try to copy a GIF image",
+  "permissions": ["clipboardWrite", "contextMenus"],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["content.js"],
+      "run_at": "document_start"
+    }
+  ],
+  "icons": {
+    "48": "images/icon48.png",
+    "128": "images/icon128.png"
+  }
+}
