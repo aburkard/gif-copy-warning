@@ -4,36 +4,49 @@ document.addEventListener('contextmenu', function(event) {
   if (event.target.tagName === 'IMG') {
     const img = event.target;
     
-    // Simple check if the image is a GIF
+    // Check if the image is a GIF
     if (img.src.toLowerCase().endsWith('.gif') || img.src.toLowerCase().includes('.gif')) {
-      // Don't block the context menu, just show a notification
-      showNotification('Warning: This is a GIF image');
+      showWarningNotification('Warning: This is a GIF image!');
     }
   }
 });
 
-// Create and show a simple non-blocking notification
-function showNotification(message) {
+// Create and show an attention-grabbing notification
+function showWarningNotification(message) {
   // Create notification element
   const notification = document.createElement('div');
   
-  // Style the notification
+  // Style the notification - more attention-grabbing
   Object.assign(notification.style, {
     position: 'fixed',
-    bottom: '20px',
-    right: '20px',
-    backgroundColor: '#ff9800',
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)',
+    backgroundColor: '#f44336',
     color: 'white',
-    padding: '12px 16px',
-    borderRadius: '4px',
-    boxShadow: '0 2px 5px rgba(0,0,0,0.2)',
-    zIndex: '9999',
-    maxWidth: '300px',
+    padding: '16px 24px',
+    borderRadius: '8px',
+    boxShadow: '0 4px 10px rgba(0,0,0,0.3)',
+    zIndex: '999999',
+    maxWidth: '400px',
     fontFamily: 'Arial, sans-serif',
-    fontSize: '14px',
+    fontSize: '18px',
     fontWeight: 'bold',
-    transition: 'opacity 0.3s ease-in-out'
+    textAlign: 'center',
+    animation: 'notification-pulse 1s infinite',
+    border: '3px solid white'
   });
+  
+  // Add keyframe animation
+  const style = document.createElement('style');
+  style.textContent = `
+    @keyframes notification-pulse {
+      0% { transform: translate(-50%, -50%) scale(1); }
+      50% { transform: translate(-50%, -50%) scale(1.05); }
+      100% { transform: translate(-50%, -50%) scale(1); }
+    }
+  `;
+  document.head.appendChild(style);
   
   // Set the notification message
   notification.textContent = message;
@@ -44,8 +57,10 @@ function showNotification(message) {
   // Remove after 3 seconds
   setTimeout(() => {
     notification.style.opacity = '0';
+    notification.style.transition = 'opacity 0.5s ease-in-out';
     setTimeout(() => {
       document.body.removeChild(notification);
-    }, 300);
+      document.head.removeChild(style);
+    }, 500);
   }, 3000);
 }
